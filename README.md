@@ -1,1 +1,1 @@
-# home_credit_default_risk_TR
+# Ev Kredisi Temerrüt Riski
