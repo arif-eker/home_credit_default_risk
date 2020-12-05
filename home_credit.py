@@ -35,5 +35,3 @@ for col in numerical_columns:
     print(bureau_df[col].describe([0.009, 0.01, 0.05, 0.95, 0.98, 0.99, 0.995]))
 
 hlp.aykırı_gozlem_baskıla(bureau_df)
-
-print("Deneme amaçlıdır.")
