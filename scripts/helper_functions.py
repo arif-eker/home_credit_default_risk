@@ -4,12 +4,11 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 from sklearn import preprocessing
 
-
 class_freq_num = 25  # Kategorik değişkenleri seçmek için frekans sınır değeri
 
-low_q1 = 0.05  # Aykırı değer bulurken kullanılacak alt quantile sınırı
+low_q1 = 0.01  # Aykırı değer bulurken kullanılacak alt quantile sınırı
 
-upper_q3 = 0.95  # Aykırı değer bulurken kullanılacak üst quantile sınırı
+upper_q3 = 0.98  # Aykırı değer bulurken kullanılacak üst quantile sınırı
 
 correlation_limit = 0.60  # Korelasyon incelenirken kullanılacak olan sınır değer
 
@@ -74,6 +73,8 @@ def cat_summary(dataframe, categorical_columns, target, plot=False):
         print(col, " : ", dataframe[col].nunique(), " unique classes.\n")
 
         print(col, " : ", dataframe[col].value_counts().sum(), "\n")
+
+        print("TARGET : ", target, "\n")
 
         print(pd.DataFrame({"COUNT": dataframe[col].value_counts(),
                             "RATIO ( % )": 100 * dataframe[col].value_counts() / len(dataframe),
@@ -243,6 +244,7 @@ def label_encoder(dataframe, categorical_columns):
 
     return dataframe
 
+
 def one_hot_encoder(dataframe, categorical_columns, nan_as_category=False):
     """
     Drop_first doğrusal modellerde yapılması gerekli
@@ -289,3 +291,56 @@ def rare_analyser(dataframe, categorical_columns, target, rare_perc):
               end="\n\n\n")
 
     print(len(rare_columns), " adet rare sınıfa sahip değişken var.")
+
+
+def aykırı_gozlem_baskıla(dataframe):
+    dataframe.loc[
+        (dataframe["CREDIT_DAY_OVERDUE"] > dataframe["CREDIT_DAY_OVERDUE"].quantile(0.99)), "CREDIT_DAY_OVERDUE"] = \
+        dataframe["CREDIT_DAY_OVERDUE"].quantile(0.99)
+
+    dataframe.loc[
+        (dataframe["DAYS_CREDIT_ENDDATE"] > dataframe["DAYS_CREDIT_ENDDATE"].quantile(0.97)), "DAYS_CREDIT_ENDDATE"] = \
+        dataframe["DAYS_CREDIT_ENDDATE"].quantile(0.97)
+    dataframe.loc[
+        (dataframe["DAYS_CREDIT_ENDDATE"] < dataframe["DAYS_CREDIT_ENDDATE"].quantile(0.01)), "DAYS_CREDIT_ENDDATE"] = \
+        dataframe["DAYS_CREDIT_ENDDATE"].quantile(0.01)
+
+    dataframe.loc[
+        (dataframe["DAYS_ENDDATE_FACT"] < dataframe["DAYS_ENDDATE_FACT"].quantile(0.01)), "DAYS_ENDDATE_FACT"] = \
+        dataframe["DAYS_ENDDATE_FACT"].quantile(0.01)
+
+    dataframe.loc[(dataframe["AMT_CREDIT_MAX_OVERDUE"] > dataframe["AMT_CREDIT_MAX_OVERDUE"].quantile(
+        0.99)), "AMT_CREDIT_MAX_OVERDUE"] = dataframe["AMT_CREDIT_MAX_OVERDUE"].quantile(0.99)
+
+    dataframe.loc[(dataframe["AMT_CREDIT_SUM"] > dataframe["AMT_CREDIT_SUM"].quantile(0.99)), "AMT_CREDIT_SUM"] = \
+    dataframe[
+        "AMT_CREDIT_SUM"].quantile(0.99)
+
+    dataframe.loc[
+        (dataframe["AMT_CREDIT_SUM_DEBT"] > dataframe["AMT_CREDIT_SUM_DEBT"].quantile(0.99)), "AMT_CREDIT_SUM_DEBT"] = \
+        dataframe["AMT_CREDIT_SUM_DEBT"].quantile(0.99)
+    dataframe.loc[
+        (dataframe["AMT_CREDIT_SUM_DEBT"] < dataframe["AMT_CREDIT_SUM_DEBT"].quantile(0.01)), "AMT_CREDIT_SUM_DEBT"] = \
+        dataframe["AMT_CREDIT_SUM_DEBT"].quantile(0.01)
+
+    dataframe.loc[
+        (dataframe["AMT_CREDIT_SUM_LIMIT"] > dataframe["AMT_CREDIT_SUM_LIMIT"].quantile(
+            0.99)), "AMT_CREDIT_SUM_LIMIT"] = \
+        dataframe["AMT_CREDIT_SUM_LIMIT"].quantile(0.99)
+    dataframe.loc[
+        (dataframe["AMT_CREDIT_SUM_LIMIT"] < dataframe["AMT_CREDIT_SUM_LIMIT"].quantile(
+            0.01)), "AMT_CREDIT_SUM_LIMIT"] = \
+        dataframe["AMT_CREDIT_SUM_LIMIT"].quantile(0.01)
+
+    dataframe.loc[(dataframe["AMT_CREDIT_SUM_OVERDUE"] > dataframe["AMT_CREDIT_SUM_OVERDUE"].quantile(
+        0.99)), "AMT_CREDIT_SUM_OVERDUE"] = dataframe["AMT_CREDIT_SUM_OVERDUE"].quantile(0.99)
+
+    dataframe.loc[
+        (dataframe["DAYS_CREDIT_UPDATE"] > dataframe["DAYS_CREDIT_UPDATE"].quantile(0.99)), "DAYS_CREDIT_UPDATE"] = \
+        dataframe["DAYS_CREDIT_UPDATE"].quantile(0.99)
+    dataframe.loc[
+        (dataframe["DAYS_CREDIT_UPDATE"] < dataframe["DAYS_CREDIT_UPDATE"].quantile(0.01)), "DAYS_CREDIT_UPDATE"] = \
+        dataframe["DAYS_CREDIT_UPDATE"].quantile(0.01)
+
+    dataframe.loc[(dataframe["AMT_ANNUITY"] > dataframe["AMT_ANNUITY"].quantile(0.99)), "AMT_ANNUITY"] = dataframe[
+        "AMT_ANNUITY"].quantile(0.99)
