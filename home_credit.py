@@ -23,6 +23,9 @@ ids = ["SK_ID_CURR", "SK_ID_BUREAU"]
 
 numerical_columns = [col for col in bureau_df.columns if col not in categorical_columns and col not in ids]
 
+len(categorical_columns)
+len(numerical_columns)
+
 for col in numerical_columns:
     hlp.cat_summary(bureau_df, categorical_columns, col)
 
