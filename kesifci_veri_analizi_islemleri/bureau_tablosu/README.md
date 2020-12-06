@@ -99,3 +99,26 @@
 
 ###### *Kredi rantı* bilgisidir.
 ###### Üst aykırı değerler *0.99* kartiller ile baskılanmalıdır.
+
+
+### :green_circle: *Nadir Sınıflar*
+
+##### :small_green_diamond: *CREDIT_ACTIVE*
+
+###### *Önceki kredinin anlık durum* bilgisidir.
+###### Sold ve Bad debt sınıfları Closed sınıfına eklenmelidir.
+
+##### :small_green_diamond: *CREDIT_CURRENCY*
+
+###### *Kredinin yeniden kodlanmış para birimi* bilgisidir.
+###### Bu değişken esasında tamamen düşürülebilir. Currency 1 hariç diğer sınıflar birleştirilebilir.
+
+##### :small_green_diamond: *CNT_CREDIT_PROLONG*
+
+###### *Kredinin kaç kere uzatıldığı* bilgisidir.
+###### Bu değişken esasında tamamen düşürülebilir. 0 hariç diğerleri tek bir çatıda toplanmalıdır.
+
+##### :small_green_diamond: *CREDIT_TYPE*
+
+###### *Kredinin türü* bilgisidir.
+###### Consumer credit ve Car loan sınıfları hariç diğer sınıflar birleştirilmelidir.
