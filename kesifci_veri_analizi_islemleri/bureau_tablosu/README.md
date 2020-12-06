@@ -1,4 +1,4 @@
-# **** Bureau Tablosu Keşifçi Veri Analizi İşlemleri ****
+# **** **Bureau Tablosu Keşifçi Veri Analizi İşlemleri** ****
 
 ### *Adım 1 - Veriye Genel Bakış*
 
@@ -7,7 +7,7 @@
 ###### Daha sonra verinin uzunluğuna ve değişken adedine bakıyoruz.
 ###### Değişkenlerimizin adlarına bakıyoruz.
 ###### Sonrasında eksik gözlem var mı bu bilgiye bakıyoruz. Bu bilgiden sonra hangi değişkende kaçar adet var buna bakıyoruz.
-###### Bu adımlar bittikten sonra değişkenlerimizin kaçı "*object*" tipte ve kaçı "*sayısal*" tipte bu bilgilere bakıyoruz.
+###### Bu adımlar bittikten sonra değişkenlerimizin kaçı "**object**" tipte ve kaçı "**sayısal**" tipte bu bilgilere bakıyoruz.
 
 
 
@@ -45,7 +45,7 @@
 ###### Yakalanan değişkenlerdeki eksiklik sayısına ve bu eksikliğin verimizde % kaç olduğuna bakıyoruz.
 
 
-## **** Bureau Tablosu - Keşifçi Veri Analizi Sonuçları ****
+## **** **Bureau Tablosu - Keşifçi Veri Analizi Sonuçları** ****
 
 ### *Aykırı Gözlemler*
 
