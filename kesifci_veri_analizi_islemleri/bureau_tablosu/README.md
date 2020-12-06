@@ -45,7 +45,7 @@
 ###### Yakalanan değişkenlerdeki eksiklik sayısına ve bu eksikliğin verimizde % kaç olduğuna bakıyoruz.
 
 
-# :green_circle: **Bureau Tablosu - Keşifçi Veri Analizi Sonuçları** :point_down:
+# **Bureau Tablosu - Keşifçi Veri Analizi Sonuçları** :point_down:
 
 ### :orange_circle: *Aykırı Gözlemler*
 
