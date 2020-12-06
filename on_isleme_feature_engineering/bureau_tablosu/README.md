@@ -1,0 +1,1 @@
+# Bureau Tablosu Veri Ön İşleme ve Feature Engineering İşlemleri
