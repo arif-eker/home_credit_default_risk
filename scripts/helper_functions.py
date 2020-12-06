@@ -24,9 +24,9 @@ def check_dataframe(dataframe):
     print("Data Frame Raws Lenght : ", dataframe.shape[0],
           "\nData Frame Columns Lenght : ", dataframe.shape[1])
 
-    print("\nData Frame Columns Names : ", list(dataframe.columns))
+    print("\nData Frame Columns Names : \n", list(dataframe.columns))
 
-    print("\nIs data frame has null value? : ", dataframe.isnull().any())
+    print("\nIs data frame has null value? : \n", dataframe.isnull().any())
 
     print("\nHow many missing values are in which columns? :\n", dataframe.isnull().sum())
 
