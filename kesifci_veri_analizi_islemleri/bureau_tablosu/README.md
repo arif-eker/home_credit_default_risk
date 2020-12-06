@@ -1,4 +1,4 @@
-# **** **Bureau Tablosu Keşifçi Veri Analizi İşlemleri** ****
+# **Bureau Tablosu Keşifçi Veri Analizi İşlemleri**
 
 ### *Adım 1 - Veriye Genel Bakış*
 
@@ -45,7 +45,7 @@
 ###### Yakalanan değişkenlerdeki eksiklik sayısına ve bu eksikliğin verimizde % kaç olduğuna bakıyoruz.
 
 
-## **** **Bureau Tablosu - Keşifçi Veri Analizi Sonuçları** ****
+# **Bureau Tablosu - Keşifçi Veri Analizi Sonuçları**
 
 ### *Aykırı Gözlemler*
 
