@@ -1,6 +1,6 @@
 # **Bureau Tablosu Keşifçi Veri Analizi İşlemleri**
 
-### :red_circle: 1. *Veriye Genel Bakış* :point_left:
+### :small_red_triangle_down: 1. *Veriye Genel Bakış* :point_left:
 
 ###### Bu adımda verimizi okuduktan sonra veriye genel bir bakış yapıyoruz.
 ###### Verimizi doğru okuduğumuzu kontrol etmek için baştan ve sondan 5 gözleme bakıyoruz.
@@ -11,7 +11,7 @@
 
 
 
-### :red_circle: 2. *Kategorik Değişkenlerin İncelenmesi* :point_left:
+### :small_red_triangle_down: 2. *Kategorik Değişkenlerin İncelenmesi* :point_left:
 
 ###### Bu adımda kategorik değişkenlerimizi incelemeye geçiyoruz.
 ###### Öncelikle verimizdeki *kategorik, sayısal ve gereksiz* değişkenlerimizi belirliyoruz.
@@ -20,7 +20,7 @@
 ###### Aynı zamanda kategorik değişkenlerimizin sınıflarının adedine ve verimizdeki %' sine bakıyoruz.
 
 
-### :red_circle: 3. *Sayısal Değişkenlerin İncelenmesi* :point_left:
+### :small_red_triangle_down: 3. *Sayısal Değişkenlerin İncelenmesi* :point_left:
 
 ###### Bu adımda yukarıda belirlediğimiz sayısal değişkenlerimizin dağılımına bakıyoruz.
 ###### Bunun için "*histogram*" çizdiriyoruz. Aykırı gözlemleri görebilmek içinse "*boxplot*" çizdiriyoruz.
@@ -29,7 +29,7 @@
 ###### Bunun içinse sayısal değişkenlerimiz için kartillere elle bakıyoruz. Böylece hangi değişkende aykırılık var görebiliyoruz.
 
 
-### :red_circle: 4. *Nadirlik İncelemesi* :point_left:
+### :small_red_triangle_down: 4. *Nadirlik İncelemesi* :point_left:
 
 ###### Bu adımda kategorik değişkenlerimizdeki nadir sınıfları inceliyoruz.
 ###### Nadir sınıflar normal şartlarda karşımıza çok zor çıkan durumlardır ve bizlere yük olur.
@@ -38,7 +38,7 @@
 
 
 
-### :red_circle: 5. *Eksik Gözlem Analizi* :point_left:
+### :small_red_triangle_down: 5. *Eksik Gözlem Analizi* :point_left:
 
 ###### Bu adımda eksik gözlem analizi yapıyoruz.
 ###### Değişkenlerde eksik gözleme sahip değişkenleri yakalıyoruz.
@@ -47,7 +47,7 @@
 
 # **Bureau Tablosu - Keşifçi Veri Analizi Sonuçları** :point_down:
 
-### :orange_circle: *Aykırı Gözlemler*
+### :orange_circle:  *Aykırı Gözlemler*  :orange_circle:
 
 
 ##### :small_orange_diamond: *CREDIT_DAY_OVERDUE*
@@ -101,7 +101,7 @@
 ###### Üst aykırı değerler *0.99* kartiller ile baskılanmalıdır.
 
 
-### :green_circle: *Nadir Sınıflar*
+### :green_circle:  *Nadir Sınıflar*  :green_circle:
 
 ##### :small_orange_diamond: *CREDIT_ACTIVE*
 
