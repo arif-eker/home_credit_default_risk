@@ -11,20 +11,17 @@ bureau_df = pd.read_csv("data/bureau.csv")
 
 hlp.check_dataframe(bureau_df)
 
-for col in bureau_df.columns:
-    print(col, " : ", bureau_df[col].nunique())
-
 bureau_df.head()
 bureau_df.tail()
+
+for col in bureau_df.columns:
+    print(col, " : ", bureau_df[col].nunique())
 
 categorical_columns = ["CREDIT_ACTIVE", "CREDIT_CURRENCY", "CNT_CREDIT_PROLONG", "CREDIT_TYPE"]
 
 ids = ["SK_ID_CURR", "SK_ID_BUREAU"]
 
 numerical_columns = [col for col in bureau_df.columns if col not in categorical_columns and col not in ids]
-
-len(categorical_columns)
-len(numerical_columns)
 
 for col in numerical_columns:
     hlp.cat_summary(bureau_df, categorical_columns, col)
@@ -35,3 +32,6 @@ for col in numerical_columns:
     print(bureau_df[col].describe([0.009, 0.01, 0.05, 0.95, 0.98, 0.99, 0.995]))
 
 hlp.aykırı_gozlem_baskıla(bureau_df)
+
+for col in numerical_columns:
+    hlp.rare_analyser(bureau_df, categorical_columns, col, 0.02)
