@@ -47,55 +47,55 @@
 
 # **Bureau Tablosu - Keşifçi Veri Analizi Sonuçları** :point_down:
 
-### :orange_circle: * *Aykırı Gözlemler*
+### :orange_circle: *Aykırı Gözlemler*
 
 
-##### :small_orange_diamond: * *CREDIT_DAY_OVERDUE*
+##### :small_orange_diamond: *CREDIT_DAY_OVERDUE*
 
 ###### *Başvuru esnasında, önceki kredilerin vadesi geçen gün sayısı* bilgisidir.
 ###### 1 tane gözlemde *2792* değeri bulunmaktadır. Bu değer *0.99* kartiller ile baskılanmalıdır.
 
-##### :small_orange_diamond: * *DAYS_CREDIT_ENDDATE*
+##### :small_orange_diamond: *DAYS_CREDIT_ENDDATE*
 
 ###### *Başvuru esnasında, önceki kredinin kapanmasına kaç gün kaldığı gün sayısı* bilgisidir.
 ###### Min değeri *-42.060* gün ve Max değeri *31.199* gündür. Alt aykırı değerler *0.01* kartiller ile ve üst aykırı değerler de *0.97* kartiller değeri ile baskılanmalıdır.
 
-##### :small_orange_diamond: * *DAYS_ENDDATE_FACT*
+##### :small_orange_diamond: *DAYS_ENDDATE_FACT*
 
 ###### *Başvuru esnasında, kapanmmış kredilerin üstünden geçen gün sayısı* bilgisidir.
 ###### Min değeri *-42.023* gündür. Alt aykırı değerler *0.01* kartiller ile baskılanmalıdır.
 
-##### :small_orange_diamond: * *AMT_CREDIT_MAX_OVERDUE*
+##### :small_orange_diamond: *AMT_CREDIT_MAX_OVERDUE*
 
 ###### *Kredinin bugüne kadar ödenmemiş maks tutarı* bilgisidir.
 ###### Üst aykırı değerler *0.99* kartiller ile baskılanmalıdır.
 
-##### :small_orange_diamond: * *AMT_CREDIT_SUM*
+##### :small_orange_diamond: *AMT_CREDIT_SUM*
 
 ###### *Anlık kredi miktarı* bilgisidir.
 ###### Üst aykırı değerler *0.99* kartiller ile baskılanmalıdır.
 
-##### :small_orange_diamond: * *AMT_CREDIT_SUM_DEBT*
+##### :small_orange_diamond: *AMT_CREDIT_SUM_DEBT*
 
 ###### *Kredi için anlık borç* bilgisidir.
 ###### Mantıksız olarak eksi değerler bulunmaktadır. Alt aykırı değerler *0.01* kartiller ile ve üst aykırı değerler ise *0.99* kartillerle baskılanmalıdır.
 
-##### :small_orange_diamond: * *AMT_CREDIT_SUM_LIMIT*
+##### :small_orange_diamond: *AMT_CREDIT_SUM_LIMIT*
 
 ###### *Kredi kartının kredi limiti* bilgisidir.
 ###### Mantıksız olarak eksi değerler bulunmaktadır. Alt aykırı değerler *0.01* kartiller ile ve üst aykırı değerler ise *0.99* kartillerle baskılanmalıdır.
 
-##### :small_orange_diamond: * *AMT_CREDIT_SUM_OVERDUE*
+##### :small_orange_diamond: *AMT_CREDIT_SUM_OVERDUE*
 
 ###### *Kredinin ödemesi gelmiş cari tutar* bilgisidir.
 ###### Üst aykırı değerler *0.99* kartiller ile baskılanmalıdır.
 
-##### :small_orange_diamond: * *DAYS_CREDIT_UPDATE*
+##### :small_orange_diamond: *DAYS_CREDIT_UPDATE*
 
 ###### *Başvurudan itibaren son bilgiler kaç gün önce geldi* bilgisidir.
 ###### Min değeri *-41.947* gün ve Max değeri *372* gündür. Alt aykırı değerler *0.01* kartiller ile ve üst aykırı değerler *0.99* kartiller ile baskılanmalıdır.
 
-##### :small_orange_diamond: * *AMT_ANNUITY*
+##### :small_orange_diamond: *AMT_ANNUITY*
 
 ###### *Kredi rantı* bilgisidir.
 ###### Üst aykırı değerler *0.99* kartiller ile baskılanmalıdır.
