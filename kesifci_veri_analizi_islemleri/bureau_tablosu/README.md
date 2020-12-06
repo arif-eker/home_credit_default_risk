@@ -1,6 +1,6 @@
 # **Bureau Tablosu Keşifçi Veri Analizi İşlemleri**
 
-### 1. *Adım 1 - Veriye Genel Bakış*
+### 1. *Veriye Genel Bakış*
 
 ###### Bu adımda verimizi okuduktan sonra veriye genel bir bakış yapıyoruz.
 ###### Verimizi doğru okuduğumuzu kontrol etmek için baştan ve sondan 5 gözleme bakıyoruz.
@@ -11,7 +11,7 @@
 
 
 
-### 2. *Adım 2 - Kategorik Değişkenlerin İncelenmesi*
+### 2. *Kategorik Değişkenlerin İncelenmesi*
 
 ###### Bu adımda kategorik değişkenlerimizi incelemeye geçiyoruz.
 ###### Öncelikle verimizdeki *kategorik, sayısal ve gereksiz* değişkenlerimizi belirliyoruz.
@@ -20,7 +20,7 @@
 ###### Aynı zamanda kategorik değişkenlerimizin sınıflarının adedine ve verimizdeki %' sine bakıyoruz.
 
 
-### 3. *Adım 3 - Sayısal Değişkenlerin İncelenmesi*
+### 3. *Sayısal Değişkenlerin İncelenmesi*
 
 ###### Bu adımda yukarıda belirlediğimiz sayısal değişkenlerimizin dağılımına bakıyoruz.
 ###### Bunun için "*histogram*" çizdiriyoruz. Aykırı gözlemleri görebilmek içinse "*boxplot*" çizdiriyoruz.
@@ -29,7 +29,7 @@
 ###### Bunun içinse sayısal değişkenlerimiz için kartillere elle bakıyoruz. Böylece hangi değişkende aykırılık var görebiliyoruz.
 
 
-### 4. *Adım 4 - Nadirlik İncelemesi*
+### 4. *Nadirlik İncelemesi*
 
 ###### Bu adımda kategorik değişkenlerimizdeki nadir sınıfları inceliyoruz.
 ###### Nadir sınıflar normal şartlarda karşımıza çok zor çıkan durumlardır ve bizlere yük olur.
@@ -38,7 +38,7 @@
 
 
 
-### 5. *Adım 5 - Eksik Gözlem Analizi*
+### 5. *Eksik Gözlem Analizi*
 
 ###### Bu adımda eksik gözlem analizi yapıyoruz.
 ###### Değişkenlerde eksik gözleme sahip değişkenleri yakalıyoruz.
