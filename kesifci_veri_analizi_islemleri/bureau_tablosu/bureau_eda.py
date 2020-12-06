@@ -9,6 +9,8 @@
 
 import pandas as pd
 import numpy as np
+import seaborn as sns
+import matplotlib.pyplot as plt
 import scripts.helper_functions as hlp
 
 # ******************************************************************************************** #
@@ -66,7 +68,9 @@ for col in numerical_columns:
 
 # Sayısal değişkenlerimizin histogramını incelemek için çizdiriyoruz.
 hlp.hist_for_numeric_columns(bureau_df, numerical_columns)
-
+for col in numerical_columns:
+    sns.boxplot(x=bureau_df[col])
+    plt.show()
 # ******************************************************************************************** #
 
 # Sayısal değişkenlerimizin quantile değerlerine bakalım.
@@ -88,5 +92,11 @@ for var in rare_columns:
           end="\n\n\n")
 
     print(len(rare_columns), " adet rare sınıfa sahip değişken var.")
+
+# ******************************************************************************************** #
+
+# Eksik gözlemlere bakıyoruz.
+
+na_variables = hlp.missing_values_table(bureau_df)
 
 # ******************************************************************************************** #
