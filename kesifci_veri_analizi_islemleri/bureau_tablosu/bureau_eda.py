@@ -69,6 +69,12 @@ hlp.hist_for_numeric_columns(bureau_df, numerical_columns)
 
 # ******************************************************************************************** #
 
+# Sayısal değişkenlerimizin quantile değerlerine bakalım.
+for col in numerical_columns:
+    print(bureau_df[col].describe([0.009, 0.01, 0.05, 0.95, 0.98, 0.99, 0.995]))
+
+# ******************************************************************************************** #
+
 # Nadir sınıflara sahip değişkenlerimizi bulup, bu sınıfları inceliyoruz.
 rare_perc = 0.02
 rare_columns = [col for col in categorical_columns
