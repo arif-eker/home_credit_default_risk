@@ -281,6 +281,7 @@ def rare_analyser(dataframe, categorical_columns, target, rare_perc):
     rare_columns = [col for col in categorical_columns
                     if (dataframe[col].value_counts() / len(dataframe) < rare_perc).any(axis=None)]
 
+    print("TARGET : ", target, "\n")
     for var in rare_columns:
         print(var, " : ", len(dataframe[var].value_counts()))
 
