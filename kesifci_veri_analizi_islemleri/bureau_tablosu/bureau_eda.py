@@ -84,7 +84,7 @@ for var in rare_columns:
     print(var, " : ", len(bureau_df[var].value_counts()))
 
     print(pd.DataFrame({"COUNT": bureau_df[var].value_counts(),
-                        "RATIO": bureau_df[var].value_counts() / len(bureau_df)}),
+                        "RATIO (%)": 100 * bureau_df[var].value_counts() / len(bureau_df)}),
           end="\n\n\n")
 
     print(len(rare_columns), " adet rare sınıfa sahip değişken var.")
