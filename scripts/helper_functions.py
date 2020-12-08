@@ -261,7 +261,7 @@ def one_hot_encoder(dataframe, categorical_columns, nan_as_category=False):
     original_columns = list(dataframe.columns)
 
     dataframe = pd.get_dummies(dataframe, columns=categorical_columns,
-                               dummy_na=nan_as_category, drop_first=True)
+                               dummy_na=nan_as_category, drop_first=False)
 
     new_columns = [col for col in dataframe.columns if col not in original_columns]
 
