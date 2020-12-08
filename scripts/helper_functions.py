@@ -346,6 +346,30 @@ def aykırı_gozlem_baskıla(dataframe):
     dataframe.loc[(dataframe["AMT_ANNUITY"] > dataframe["AMT_ANNUITY"].quantile(0.99)), "AMT_ANNUITY"] = dataframe[
         "AMT_ANNUITY"].quantile(0.99)
 
+
+def rare_encode(dataframe):
+    dataframe['CREDIT_TYPE'] = dataframe['CREDIT_TYPE'].replace(['Car loan',
+                                                                 'Mortgage',
+                                                                 'Microloan',
+                                                                 'Loan for business development',
+                                                                 'Another type of loan',
+                                                                 'Unknown type of loan',
+                                                                 'Loan for working capital replenishment',
+                                                                 "Loan for purchase of shares (margin lending)",
+                                                                 'Cash loan (non-earmarked)',
+                                                                 'Real estate loan',
+                                                                 "Loan for the purchase of equipment",
+                                                                 "Interbank credit",
+                                                                 "Mobile operator loan"], 'Rare')
+
+    dataframe['CREDIT_ACTIVE'] = dataframe['CREDIT_ACTIVE'].replace(['Bad debt', 'Sold'], 'Closed')
+
+    dataframe['CREDIT_CURRENCY'] = dataframe['CREDIT_CURRENCY'].replace(['currency 2', 'currency 3', 'currency 4'],
+                                                                        'currency others')
+    dataframe['CNT_CREDIT_PROLONG'] = dataframe['CNT_CREDIT_PROLONG'].replace([2, 3, 4, 5, 6, 7, 8, 9],
+                                                                              1)
+
+
 # Alıntı Başlangıç
 # Bu kısım : https://www.kaggle.com/jsaguiar/lightgbm-7th-place-solution  adresinden alınmıştır.
 def group(df_to_agg, prefix, aggregations, aggregate_by='SK_ID_CURR'):
