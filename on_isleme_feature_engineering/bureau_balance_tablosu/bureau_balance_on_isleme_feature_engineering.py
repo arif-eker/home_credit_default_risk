@@ -8,23 +8,30 @@ import scripts.helper_functions as hlp
 pd.pandas.set_option("display.max_columns", None)
 pd.set_option("display.float_format", lambda x: '%.2f' % x)
 
-bb = pd.read_csv("data/bureau_balance.csv")
 
-bb, new_cols = hlp.one_hot_encoder(bb, ["STATUS"], nan_as_category=False)
+def get_bureau_balance():
+    """
 
-bb_processed = bb.groupby('SK_ID_BUREAU')[new_cols].mean().reset_index()
+    :return: bureau_balance ön işlemden geçirilmiş hali döndürür.
 
-bb["MONTHS_BALANCE"] = -(bb["MONTHS_BALANCE"])
+    """
+    df = pd.read_csv("data/bureau_balance.csv")
 
-agg = {'MONTHS_BALANCE': ['max']}
+    df, new_cols = hlp.one_hot_encoder(df, ["STATUS"], nan_as_category=False)
 
-for col in new_cols:
-    agg[col] = ['mean']
+    df_processed = df.groupby('SK_ID_BUREAU')[new_cols].mean().reset_index()
 
-bb_processed = hlp.group_and_merge(bb, bb_processed, '', agg, 'SK_ID_BUREAU')
-bb_processed.drop(new_cols, axis=1, inplace=True)
+    df["MONTHS_BALANCE"] = -(df["MONTHS_BALANCE"])
 
-del bb
-gc.collect()
+    agg = {'MONTHS_BALANCE': ['max']}
 
-# return bb_processed
+    for col in new_cols:
+        agg[col] = ['mean']
+
+    df_processed = hlp.group_and_merge(df, df_processed, '', agg, 'SK_ID_BUREAU')
+    df_processed.drop(new_cols, axis=1, inplace=True)
+
+    del df
+    gc.collect()
+
+    return df_processed
