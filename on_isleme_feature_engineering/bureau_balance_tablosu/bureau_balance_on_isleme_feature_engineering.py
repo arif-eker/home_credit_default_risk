@@ -5,7 +5,6 @@ import pandas as pd
 import gc
 import scripts.helper_functions as hlp
 
-
 pd.pandas.set_option("display.max_columns", None)
 pd.set_option("display.float_format", lambda x: '%.2f' % x)
 
@@ -19,7 +18,11 @@ bb["MONTHS_BALANCE"] = -(bb["MONTHS_BALANCE"])
 
 agg = {'MONTHS_BALANCE': ['max']}
 
+for col in new_cols:
+    agg[col] = ['mean']
+
 bb_processed = hlp.group_and_merge(bb, bb_processed, '', agg, 'SK_ID_BUREAU')
+bb_processed.drop(new_cols, axis=1, inplace=True)
 
 del bb
 gc.collect()
