@@ -117,3 +117,12 @@ def get_bureau_and_balance():
 
     # Anlık kredinin yıllık krediye oranı
     bureau_df['CREDIT_TO_ANNUITY_RATIO'] = bureau_df['AMT_CREDIT_SUM'] / bureau_df['AMT_ANNUITY']
+
+    # Açık kredilerin borçları krediden yüksekse, ödenmesi gereken kredi tutarı bu borç olarak değiştirilmelidir.
+    # Kapalı krediler için 0 değeri atanmalıdır.
+    bureau_df["ODENMESI_GEREKEN_TUTAR"] = np.nan
+
+    bureau_df.loc[bureau_df["AMT_CREDIT_SUM_DEBT"] > bureau_df["AMT_CREDIT_SUM"], "ODENMESI_GEREKEN_TUTAR"] = \
+        bureau_df.loc[bureau_df["AMT_CREDIT_SUM_DEBT"] > bureau_df["AMT_CREDIT_SUM"], "AMT_CREDIT_SUM_DEBT"]
+
+    bureau_df.loc[bureau_df["CREDIT_ACTIVE"] == "Closed", "ODENMESI_GEREKEN_TUTAR"] = 0.0
