@@ -101,8 +101,6 @@ def get_bureau_and_balance():
 
     bureau_df = bureau_df.merge(bb, how='left', on='SK_ID_BUREAU')
 
-    bureau_df[bureau_df["CREDIT_ACTIVE"] == "Closed"].head(50)
-
     # Açık kredilerin erken kapanması yoktur. Bu yüzden süreleri, kredinin başlangıç günü + biteceği günden hesaplanır.
 
     bureau_df.loc[bureau_df["CREDIT_ACTIVE"] == "Active", "CREDIT_DURATION"] = \
