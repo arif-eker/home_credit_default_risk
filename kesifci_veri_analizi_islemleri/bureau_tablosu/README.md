@@ -121,7 +121,7 @@
 ##### :small_orange_diamond: *CREDIT_TYPE*
 
 ###### *Kredinin türü* bilgisidir.
-###### Consumer credit ve Car loan sınıfları hariç diğer sınıflar birleştirilmelidir.
+###### Consumer credit ve Credit card sınıfları hariç diğer sınıflar birleştirilmelidir.
 
 
 ### :yellow_circle:  *Eksik Gözlemler*  :yellow_circle:
