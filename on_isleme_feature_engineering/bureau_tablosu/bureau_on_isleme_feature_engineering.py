@@ -3,7 +3,7 @@
 #
 
 # Gerekli kütüphaneler eklendi.
-
+import gc
 import pandas as pd
 import numpy as np
 import scripts.helper_functions as hlp
@@ -79,7 +79,7 @@ def rare_encode(dataframe):
                                                                  'Real estate loan',
                                                                  "Loan for the purchase of equipment",
                                                                  "Interbank credit",
-                                                                 "Mobile operator loan"], 'Rare')
+                                                                 "Mobile operator loan"], 'Others')
 
     dataframe['CREDIT_ACTIVE'] = dataframe['CREDIT_ACTIVE'].replace(['Bad debt', 'Sold'], 'Closed')
 
@@ -87,6 +87,52 @@ def rare_encode(dataframe):
                                                                         'currency others')
     dataframe['CNT_CREDIT_PROLONG'] = dataframe['CNT_CREDIT_PROLONG'].replace([2, 3, 4, 5, 6, 7, 8, 9],
                                                                               1)
+
+
+# Bu kod alıntıdır. : https://github.com/ahmetcankaraoglan/Home-Credit-Default-Risk/blob/main/models/Home%20Credit%20Default%20Risk/Home%20Credit%20Default%20Risk.ipynb
+
+# Alıntı başlangıç
+def feature_early_shutdown(row):
+    if row.CREDIT_ACTIVE == "Closed" and row.DAYS_ENDDATE_FACT < row.DAYS_CREDIT_ENDDATE:
+        return 1
+    elif row.CREDIT_ACTIVE == "Closed" and row.DAYS_CREDIT_ENDDATE <= row.DAYS_ENDDATE_FACT:
+        return 0
+    else:
+        return np.nan
+
+
+# Alıntı bitiş
+
+def degisken_ekle(dataframe):
+    # Açık kredilerin erken kapanması yoktur. Bu yüzden süreleri, kredinin başlangıç günü + biteceği günden hesaplanır.
+
+    dataframe.loc[dataframe["CREDIT_ACTIVE"] == "Active", "KREDI_SURESI"] = \
+        -(dataframe.loc[dataframe["CREDIT_ACTIVE"] == "Active", "DAYS_CREDIT"]) + dataframe.loc[
+            dataframe["CREDIT_ACTIVE"] == "Active", "DAYS_CREDIT_ENDDATE"]
+
+    # Açık krediler erken kapanmış olabilir. Bu yüzden süreleri, kredinin başlangıç günü + kapatıldığı gündür.
+    dataframe.loc[dataframe["CREDIT_ACTIVE"] == "Closed", "KREDI_SURESI"] = \
+        -(dataframe.loc[dataframe["CREDIT_ACTIVE"] == "Closed", "DAYS_CREDIT"]) + dataframe.loc[
+            dataframe["CREDIT_ACTIVE"] == "Closed", "DAYS_ENDDATE_FACT"]
+
+    # Kredinin kapatılma tarihleri arasındaki fark. Erken kapanırsa +, geç kapatılırsa - değer alır. Zamanındakiler için 0 olur.
+    dataframe['ENDDATE_FARK'] = dataframe['DAYS_CREDIT_ENDDATE'] - dataframe['DAYS_ENDDATE_FACT']
+
+    # Anlık kredinin yıllık krediye oranı
+    dataframe['KREDI/YILLIK_ORAN'] = dataframe['AMT_CREDIT_SUM'] / dataframe['AMT_ANNUITY']
+
+    # Açık kredilerin borçları krediden yüksekse, ödenmesi gereken kredi tutarı bu borç olarak değiştirilmelidir.
+    # Kapalı krediler için 0 değeri atanmalıdır.
+    dataframe["ODENMESI_GEREKEN_TUTAR"] = np.nan
+
+    dataframe.loc[dataframe["AMT_CREDIT_SUM_DEBT"] > dataframe["AMT_CREDIT_SUM"], "ODENMESI_GEREKEN_TUTAR"] = \
+        dataframe.loc[dataframe["AMT_CREDIT_SUM_DEBT"] > dataframe["AMT_CREDIT_SUM"], "AMT_CREDIT_SUM_DEBT"]
+
+    dataframe.loc[dataframe["CREDIT_ACTIVE"] == "Closed", "ODENMESI_GEREKEN_TUTAR"] = 0.0
+
+    # Kredinin erken ödenip ödenmemesi. erken ödeme = 1, ödememe 0. Aktif krediler için ise nan
+
+    dataframe["ERKEN_KAPAMA"] = dataframe.apply(lambda x: feature_early_shutdown(x), axis=1)
 
 
 # ************************************************ #
@@ -99,30 +145,12 @@ def get_bureau_and_balance():
 
     rare_encode(bureau_df)
 
-    bureau_df = bureau_df.merge(bb, how='left', on='SK_ID_BUREAU')
+    bureau__balance = bureau_df.merge(bb, how='left', on='SK_ID_BUREAU')
 
-    # Açık kredilerin erken kapanması yoktur. Bu yüzden süreleri, kredinin başlangıç günü + biteceği günden hesaplanır.
+    degisken_ekle(bureau__balance)
 
-    bureau_df.loc[bureau_df["CREDIT_ACTIVE"] == "Active", "CREDIT_DURATION"] = \
-        -(bureau_df.loc[bureau_df["CREDIT_ACTIVE"] == "Active", "DAYS_CREDIT"]) + bureau_df.loc[
-            bureau_df["CREDIT_ACTIVE"] == "Active", "DAYS_CREDIT_ENDDATE"]
+    del bb, bureau_df
 
-    # Açık krediler erken kapanmış olabilir. Bu yüzden süreleri, kredinin başlangıç günü + kapatıldığı gündür.
-    bureau_df.loc[bureau_df["CREDIT_ACTIVE"] == "Closed", "CREDIT_DURATION"] = \
-        -(bureau_df.loc[bureau_df["CREDIT_ACTIVE"] == "Closed", "DAYS_CREDIT"]) + bureau_df.loc[
-            bureau_df["CREDIT_ACTIVE"] == "Closed", "DAYS_ENDDATE_FACT"]
+    gc.collect()
 
-    # Kredinin kapatılma tarihleri arasındaki fark. Erken kapanırsa +, geç kapatılırsa - değer alır. Zamanındakiler için 0 olur.
-    bureau_df['ENDDATE_DIF'] = bureau_df['DAYS_CREDIT_ENDDATE'] - bureau_df['DAYS_ENDDATE_FACT']
-
-    # Anlık kredinin yıllık krediye oranı
-    bureau_df['CREDIT_TO_ANNUITY_RATIO'] = bureau_df['AMT_CREDIT_SUM'] / bureau_df['AMT_ANNUITY']
-
-    # Açık kredilerin borçları krediden yüksekse, ödenmesi gereken kredi tutarı bu borç olarak değiştirilmelidir.
-    # Kapalı krediler için 0 değeri atanmalıdır.
-    bureau_df["ODENMESI_GEREKEN_TUTAR"] = np.nan
-
-    bureau_df.loc[bureau_df["AMT_CREDIT_SUM_DEBT"] > bureau_df["AMT_CREDIT_SUM"], "ODENMESI_GEREKEN_TUTAR"] = \
-        bureau_df.loc[bureau_df["AMT_CREDIT_SUM_DEBT"] > bureau_df["AMT_CREDIT_SUM"], "AMT_CREDIT_SUM_DEBT"]
-
-    bureau_df.loc[bureau_df["CREDIT_ACTIVE"] == "Closed", "ODENMESI_GEREKEN_TUTAR"] = 0.0
+    return bureau__balance
