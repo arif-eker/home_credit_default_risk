@@ -314,8 +314,8 @@ def aykırı_gozlem_baskıla(dataframe):
         0.99)), "AMT_CREDIT_MAX_OVERDUE"] = dataframe["AMT_CREDIT_MAX_OVERDUE"].quantile(0.99)
 
     dataframe.loc[(dataframe["AMT_CREDIT_SUM"] > dataframe["AMT_CREDIT_SUM"].quantile(0.99)), "AMT_CREDIT_SUM"] = \
-    dataframe[
-        "AMT_CREDIT_SUM"].quantile(0.99)
+        dataframe[
+            "AMT_CREDIT_SUM"].quantile(0.99)
 
     dataframe.loc[
         (dataframe["AMT_CREDIT_SUM_DEBT"] > dataframe["AMT_CREDIT_SUM_DEBT"].quantile(0.99)), "AMT_CREDIT_SUM_DEBT"] = \
@@ -345,3 +345,100 @@ def aykırı_gozlem_baskıla(dataframe):
 
     dataframe.loc[(dataframe["AMT_ANNUITY"] > dataframe["AMT_ANNUITY"].quantile(0.99)), "AMT_ANNUITY"] = dataframe[
         "AMT_ANNUITY"].quantile(0.99)
+
+# Alıntı Başlangıç
+# Bu kısım : https://www.kaggle.com/jsaguiar/lightgbm-7th-place-solution  adresinden alınmıştır.
+def group(df_to_agg, prefix, aggregations, aggregate_by='SK_ID_CURR'):
+    agg_df = df_to_agg.groupby(aggregate_by).agg(aggregations)
+    agg_df.columns = pd.Index(['{}{}_{}'.format(prefix, e[0], e[1].upper())
+                               for e in agg_df.columns.tolist()])
+    return agg_df.reset_index()
+
+
+def group_and_merge(df_to_agg, df_to_merge, prefix, aggregations, aggregate_by='SK_ID_CURR'):
+    agg_df = group(df_to_agg, prefix, aggregations, aggregate_by=aggregate_by)
+    return df_to_merge.merge(agg_df, how='left', on=aggregate_by)
+
+
+# AGGREGATIONS
+BUREAU_AGG = {
+    'SK_ID_BUREAU': ['nunique'],
+    'DAYS_CREDIT': ['min', 'max', 'mean'],
+    'DAYS_CREDIT_ENDDATE': ['min', 'max'],
+    'AMT_CREDIT_MAX_OVERDUE': ['max', 'mean'],
+    'AMT_CREDIT_SUM': ['max', 'mean', 'sum'],
+    'AMT_CREDIT_SUM_DEBT': ['max', 'mean', 'sum'],
+    'AMT_CREDIT_SUM_OVERDUE': ['max', 'mean', 'sum'],
+    'AMT_ANNUITY': ['mean'],
+    'DEBT_CREDIT_DIFF': ['mean', 'sum'],
+    'MONTHS_BALANCE_MEAN': ['mean', 'var'],
+    'MONTHS_BALANCE_SIZE': ['mean', 'sum'],
+    # Categorical
+    'STATUS_0': ['mean'],
+    'STATUS_1': ['mean'],
+    'STATUS_12345': ['mean'],
+    'STATUS_C': ['mean'],
+    'STATUS_X': ['mean'],
+    'CREDIT_ACTIVE_Active': ['mean'],
+    'CREDIT_ACTIVE_Closed': ['mean'],
+    'CREDIT_ACTIVE_Sold': ['mean'],
+    'CREDIT_TYPE_Consumer credit': ['mean'],
+    'CREDIT_TYPE_Credit card': ['mean'],
+    'CREDIT_TYPE_Car loan': ['mean'],
+    'CREDIT_TYPE_Mortgage': ['mean'],
+    'CREDIT_TYPE_Microloan': ['mean'],
+    # Group by loan duration features (months)
+    'LL_AMT_CREDIT_SUM_OVERDUE': ['mean'],
+    'LL_DEBT_CREDIT_DIFF': ['mean'],
+    'LL_STATUS_12345': ['mean'],
+}
+
+BUREAU_ACTIVE_AGG = {
+    'DAYS_CREDIT': ['max', 'mean'],
+    'DAYS_CREDIT_ENDDATE': ['min', 'max'],
+    'AMT_CREDIT_MAX_OVERDUE': ['max', 'mean'],
+    'AMT_CREDIT_SUM': ['max', 'sum'],
+    'AMT_CREDIT_SUM_DEBT': ['mean', 'sum'],
+    'AMT_CREDIT_SUM_OVERDUE': ['max', 'mean'],
+    'DAYS_CREDIT_UPDATE': ['min', 'mean'],
+    'DEBT_PERCENTAGE': ['mean'],
+    'DEBT_CREDIT_DIFF': ['mean'],
+    'CREDIT_TO_ANNUITY_RATIO': ['mean'],
+    'MONTHS_BALANCE_MEAN': ['mean', 'var'],
+    'MONTHS_BALANCE_SIZE': ['mean', 'sum'],
+}
+
+BUREAU_CLOSED_AGG = {
+    'DAYS_CREDIT': ['max', 'var'],
+    'DAYS_CREDIT_ENDDATE': ['max'],
+    'AMT_CREDIT_MAX_OVERDUE': ['max', 'mean'],
+    'AMT_CREDIT_SUM_OVERDUE': ['mean'],
+    'AMT_CREDIT_SUM': ['max', 'mean', 'sum'],
+    'AMT_CREDIT_SUM_DEBT': ['max', 'sum'],
+    'DAYS_CREDIT_UPDATE': ['max'],
+    'ENDDATE_DIF': ['mean'],
+    'STATUS_12345': ['mean'],
+}
+
+BUREAU_LOAN_TYPE_AGG = {
+    'DAYS_CREDIT': ['mean', 'max'],
+    'AMT_CREDIT_MAX_OVERDUE': ['mean', 'max'],
+    'AMT_CREDIT_SUM': ['mean', 'max'],
+    'AMT_CREDIT_SUM_DEBT': ['mean', 'max'],
+    'DEBT_PERCENTAGE': ['mean'],
+    'DEBT_CREDIT_DIFF': ['mean'],
+    'DAYS_CREDIT_ENDDATE': ['max'],
+}
+
+BUREAU_TIME_AGG = {
+    'AMT_CREDIT_MAX_OVERDUE': ['max', 'mean'],
+    'AMT_CREDIT_SUM_OVERDUE': ['mean'],
+    'AMT_CREDIT_SUM': ['max', 'sum'],
+    'AMT_CREDIT_SUM_DEBT': ['mean', 'sum'],
+    'DEBT_PERCENTAGE': ['mean'],
+    'DEBT_CREDIT_DIFF': ['mean'],
+    'STATUS_0': ['mean'],
+    'STATUS_12345': ['mean'],
+}
+
+# Alıntı Bitiş
