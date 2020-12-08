@@ -110,7 +110,7 @@ def degisken_ekle(dataframe):
         -(dataframe.loc[dataframe["CREDIT_ACTIVE"] == "Active", "DAYS_CREDIT"]) + dataframe.loc[
             dataframe["CREDIT_ACTIVE"] == "Active", "DAYS_CREDIT_ENDDATE"]
 
-    # Açık krediler erken kapanmış olabilir. Bu yüzden süreleri, kredinin başlangıç günü + kapatıldığı gündür.
+    # Kapalı krediler erken kapanmış olabilir. Bu yüzden süreleri, kredinin başlangıç günü + kapatıldığı gündür.
     dataframe.loc[dataframe["CREDIT_ACTIVE"] == "Closed", "KREDI_SURESI"] = \
         -(dataframe.loc[dataframe["CREDIT_ACTIVE"] == "Closed", "DAYS_CREDIT"]) + dataframe.loc[
             dataframe["CREDIT_ACTIVE"] == "Closed", "DAYS_ENDDATE_FACT"]

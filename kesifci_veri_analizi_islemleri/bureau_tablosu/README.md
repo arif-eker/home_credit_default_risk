@@ -127,3 +127,5 @@
 ### :yellow_circle:  *Eksik Gözlemler*  :yellow_circle:
 
 ##### Şu aşamada eksik gözlemleri doldurmak sıkıntı doğuracaktır. Bu yüzden bu işlemler en sonda yapılabilir.
+
+##### Shapiro-Wilks testi 5000 örneklemden fazla örnekte doğruluk sağlamıyor. Büyük sayılar kanunundan dolayı.
